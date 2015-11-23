@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=args
+comment0.target=void\ main(java.lang.String[])
+comment1.params=input
+comment1.target=java.lang.String\ produceAnswer(java.lang.String)
+comment2.params=operand
+comment2.target=int\ denominator(java.lang.String)
+comment3.params=operand\ denominator
+comment3.target=int\ wholeNumber(java.lang.String,\ int)
+comment4.params=operand\ whole
+comment4.target=int\ numerator(java.lang.String,\ int)
+numComments=5
