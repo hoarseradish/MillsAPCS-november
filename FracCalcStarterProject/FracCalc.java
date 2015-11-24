@@ -1,6 +1,6 @@
 //Gavin Moy
 // 11/22/15
-// FracCalC CheckPoint 2 
+// FracCalC CheckPoint 1
 
 import java.util.*;
 public class FracCalc {
@@ -21,12 +21,24 @@ public class FracCalc {
 
     public static String produceAnswer(String input)
     { 
+        /**
 
         String[] inputParts = input.split(" ");
         String operand1 = inputParts[0];
         String operand2 = inputParts[2];
         String operator = inputParts[1];
-        //return operand2;            check point 1
+         */
+        int space;
+        space = input.indexOf(" ");
+        String operand1 = input.substring(0,space);
+        int length = input.length();
+        String operator = input.substring(space+1,length);
+        space = operator.indexOf(" ");
+        length = operator.length();
+        String operand2= operator.substring(space+1, length);
+        operator = operator.substring(0, space);
+
+        //return operand2;          //  check point 1
         int denominator1 = denominator(operand1); // find the denominator, whole number and numerator for both operands
         int denominator2 = denominator(operand2);
         int whole1 = wholeNumber(operand1, denominator1);
@@ -34,38 +46,39 @@ public class FracCalc {
         int numerator1 = numerator(operand1, whole1);
         int numerator2 = numerator(operand2, whole2);
 
-        //String answer = "whole:" + whole2 + " numerator:" + numerator2 + " denominator:" + denominator2;        check point 2
-        //return answer;
+        String answer = "whole:" + whole2 + " numerator:" + numerator2 + " denominator:" + denominator2;        //check point 2
+        return answer;
+        /** 
         numerator1 = improperNumerator( numerator1, denominator1, whole1);
         numerator2 = improperNumerator( numerator2, denominator2, whole2);
         int numerator3;
         int denominator3;
         if (operator == "*" || operator =="x") {
-            numerator3= numerator1 * numerator2;
-            denominator3 = denominator2 * denominator2;
+        numerator3= numerator1 * numerator2;
+        denominator3 = denominator2 * denominator2;
         }
         else if (operator == "/") {
-            numerator3 = numerator1 * denominator2;
-            denominator3 = numerator2 * denominator1;
+        numerator3 = numerator1 * denominator2;
+        denominator3 = numerator2 * denominator1;
         }
 
         else 
         {
-            denominator3 = denominator1 * denominator2;
-            numerator1=lcdNum(numerator1, denominator2); 
-            numerator2 = lcdNum(numerator2, denominator1);
-            
-            if (operator == "+") {
-                numerator3 = numerator1+numerator2;
-            }
-            else {
-                numerator3 = numerator1-numerator2;
-            }
+        denominator3 = denominator1 * denominator2;
+        numerator1=lcdNum(numerator1, denominator2); 
+        numerator2 = lcdNum(numerator2, denominator1);
+
+        if (operator == "+") {
+        numerator3 = numerator1+numerator2;
+        }
+        else {
+        numerator3 = numerator1-numerator2;
+        }
         }
         String answer = numerator3+ "/" + denominator3;
         return answer;
+         */
 
-        
 
     }
 
@@ -126,11 +139,10 @@ public class FracCalc {
     public static int improperNumerator( int numerator, int denominator, int whole) {
         return numerator = numerator + denominator * whole;    
     }
+
     public static int lcdNum (int numerator, int denominator) {
         return numerator = numerator * denominator;
     }
-
-   
 
 
 
