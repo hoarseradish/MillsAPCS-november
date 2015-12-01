@@ -1,20 +1,22 @@
 //Gavin Moy
-// 11/22/15
-// FracCalC CheckPoint 1
+// 11/30/15
+// FracCalC CheckPoint 3
 
 import java.util.*;
 public class FracCalc {
 
     public static void main(String[] args) 
     {
+        System.out.println("Input a question with fractions.");
         Scanner input = new Scanner(System.in);
         String question = input.nextLine();
-        while ( question != "stop") {
-            System.out.println("Input a question with fractions.");
+        while ( !(question.equals ("stop"))) {
             String answer = produceAnswer(question);
             System.out.println(answer);
+            System.out.println("Input a question with fractions. (enter \"stop\" to stop)");
             question = input.nextLine();
         }
+        
 
     }
 
@@ -77,9 +79,7 @@ public class FracCalc {
         String answer = numerator3+ "/" + denominator3;
         return answer;
 
-
     }
-
     public static int denominator(String operand) { // finds the denominator of the operand
         int fowardslash = operand.indexOf("/");
         String denominator;
@@ -141,6 +141,5 @@ public class FracCalc {
     public static int cdNum (int numerator, int denominator) {
         return numerator = numerator * denominator;
     }
-
 
 }
