@@ -29,7 +29,7 @@ public class FracCalc {
         String operand2 = inputParts[2];
         String operator = inputParts[1];
          */
-        int space;
+        int space;    // seperating the operands and the operator
         space = input.indexOf(" ");
         String operand1 = input.substring(0,space);
         int length = input.length();
@@ -50,7 +50,7 @@ public class FracCalc {
         //String answer = "whole:" + whole2 + " numerator:" + numerator2 + " denominator:" + denominator2;        //check point 2
         //return answer;
 
-        numerator1 = improperNumerator( numerator1, denominator1, whole1);
+        numerator1 = improperNumerator( numerator1, denominator1, whole1); // change both operands into improper fractons
         numerator2 = improperNumerator( numerator2, denominator2, whole2);
         int numerator3;
         int denominator3;
@@ -65,7 +65,7 @@ public class FracCalc {
 
         else 
         {
-            denominator3 = denominator1 * denominator2;
+            denominator3 = denominator1 * denominator2; // changing the denominator and numerator of both operands so that they can be added
             numerator1=cdNum(numerator1, denominator2); 
             numerator2 = cdNum(numerator2, denominator1);
 
@@ -76,7 +76,7 @@ public class FracCalc {
                 numerator3 = numerator1-numerator2;
             }
         }
-        String answer = numerator3+ "/" + denominator3;
+        String answer = numerator3+ "/" + denominator3;   //checkpoint 3
         return answer;
 
     }
@@ -134,12 +134,26 @@ public class FracCalc {
 
     }
 
-    public static int improperNumerator( int numerator, int denominator, int whole) {
+    public static int improperNumerator( int numerator, int denominator, int whole) { //  the denominator by the whole number and add that to the numerator to make improper fraction
         return numerator = numerator + denominator * whole;    
     }
 
-    public static int cdNum (int numerator, int denominator) {
+    public static int cdNum (int numerator, int denominator) { // to find the numerator after finding the common denominator, multiply the numerator by the opposite denominator
         return numerator = numerator * denominator;
     }
+    
+    public static String reduce (int numerator, int denominator) {
+        int whole=0;
+        if (numerator > denominator) {
+            whole = numerator/denominator;
+            numerator = numerator%denominator;
+        }
+        
+        return answer;
+            
+            
+            
+        }
+        
+    }
 
-}

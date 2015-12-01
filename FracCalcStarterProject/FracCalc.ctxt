@@ -13,4 +13,6 @@ comment5.params=numerator\ denominator\ whole
 comment5.target=int\ improperNumerator(int,\ int,\ int)
 comment6.params=numerator\ denominator
 comment6.target=int\ cdNum(int,\ int)
-numComments=7
+comment7.params=numerator\ denominator
+comment7.target=java.lang.String\ reduce(int,\ int)
+numComments=8
