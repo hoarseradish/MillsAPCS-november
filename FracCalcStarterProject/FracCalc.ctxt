@@ -12,5 +12,5 @@ comment4.target=int\ numerator(java.lang.String,\ int)
 comment5.params=numerator\ denominator\ whole
 comment5.target=int\ improperNumerator(int,\ int,\ int)
 comment6.params=numerator\ denominator
-comment6.target=int\ lcdNum(int,\ int)
+comment6.target=int\ cdNum(int,\ int)
 numComments=7
