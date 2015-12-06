@@ -1,6 +1,6 @@
 //Gavin Moy
-// 11/30/15
-// FracCalC CheckPoint 3
+// 12/5/15
+// FracCalC Final
 
 import java.util.*;
 public class FracCalc {
@@ -16,19 +16,10 @@ public class FracCalc {
             System.out.println("Input a question with fractions. (enter \"stop\" to stop)");
             question = input.nextLine();
         }
-        
-
     }
 
     public static String produceAnswer(String input)
     { 
-        /**
-
-        String[] inputParts = input.split(" ");
-        String operand1 = inputParts[0];
-        String operand2 = inputParts[2];
-        String operator = inputParts[1];
-         */
         int space;    // seperating the operands and the operator
         space = input.indexOf(" ");
         String operand1 = input.substring(0,space);
@@ -38,7 +29,6 @@ public class FracCalc {
         length = operator.length();
         String operand2= operator.substring(space+1, length);
         operator = operator.substring(0, space);
-
         //return operand2;          //  check point 1
         int denominator1 = denominator(operand1); // find the denominator, whole number and numerator for both operands
         int denominator2 = denominator(operand2);
@@ -46,10 +36,8 @@ public class FracCalc {
         int whole2 = wholeNumber(operand2, denominator2);
         int numerator1 = numerator(operand1, whole1);
         int numerator2 = numerator(operand2, whole2);
-
         //String answer = "whole:" + whole2 + " numerator:" + numerator2 + " denominator:" + denominator2;        //check point 2
         //return answer;
-
         numerator1 = improperNumerator( numerator1, denominator1, whole1); // change both operands into improper fractons
         numerator2 = improperNumerator( numerator2, denominator2, whole2);
         int numerator3;
@@ -60,14 +48,21 @@ public class FracCalc {
         }
         else if (operator.indexOf( "/")==0) {
             numerator3 = numerator1 * denominator2;
-            denominator3 = numerator2 * denominator1;
-        }
+            if (numerator2 < 0) {
 
+                numerator3 = (numerator1 * denominator2)* -1;
+                denominator3 = (Math.abs(numerator2) * denominator1);
+            }
+            else {
+                numerator3 = numerator1 * denominator2;
+                denominator3 = numerator2 * denominator1;
+            }
+        }
         else 
         {
             denominator3 = denominator1 * denominator2; // changing the denominator and numerator of both operands so that they can be added
-            numerator1=cdNum(numerator1, denominator2); 
-            numerator2 = cdNum(numerator2, denominator1);
+            numerator1= (numerator1 * denominator2); 
+            numerator2 =(numerator2 * denominator1);
 
             if (operator.indexOf( "+")== 0) {
                 numerator3 = numerator1+numerator2;
@@ -76,10 +71,12 @@ public class FracCalc {
                 numerator3 = numerator1-numerator2;
             }
         }
-        String answer = numerator3+ "/" + denominator3;   //checkpoint 3
+        //String answer = numerator3+ "/" + denominator3;   //checkpoint 3
+        String answer = reduce(numerator3, denominator3);
         return answer;
 
     }
+
     public static int denominator(String operand) { // finds the denominator of the operand
         int fowardslash = operand.indexOf("/");
         String denominator;
@@ -98,7 +95,7 @@ public class FracCalc {
     public static int wholeNumber(String operand, int denominator) { // finds the whole number
         int index = operand.indexOf("_");
         String whole;
-        if (denominator ==1 && index ==-1) { // if the denominator is 1 and there is no _, the whole number is the entire operand
+        if (denominator ==1 && index ==-1) { // if the denominator is 1 and there is no _, the whole number is usually the entire operand unless the operand is something like -2/1
             whole = operand;
         }
         else {
@@ -108,6 +105,10 @@ public class FracCalc {
             else { // the whole number is forom the begining of the operand to before the _
                 whole = operand.substring(0, index);
             }
+        }
+        index = whole.indexOf("/"); // in the case of the exception above, the whole number is 0
+        if ( index != -1) {
+            whole = "0";
         }
         return Integer.parseInt(whole); // returns the whole number in int form
     }
@@ -135,25 +136,50 @@ public class FracCalc {
     }
 
     public static int improperNumerator( int numerator, int denominator, int whole) { //  the denominator by the whole number and add that to the numerator to make improper fraction
-        return numerator = numerator + denominator * whole;    
+        if (whole <0) {
+            return numerator = ((numerator + denominator * Math.abs(whole)) * -1) ;
+        }
+        else {
+            return  numerator = numerator + denominator * whole;
+        }
     }
 
-    public static int cdNum (int numerator, int denominator) { // to find the numerator after finding the common denominator, multiply the numerator by the opposite denominator
-        return numerator = numerator * denominator;
-    }
-    
-    public static String reduce (int numerator, int denominator) {
+    public static String reduce (int numerator, int denominator) {// changes numerator and denominator into mixed number, then reduces 
         int whole=0;
-        if (numerator > denominator) {
+        if (Math.abs(numerator) > denominator) { // changes improper fractions into mixed numbers
             whole = numerator/denominator;
-            numerator = numerator%denominator;
+            numerator = Math.abs(numerator)%denominator;
         }
-        
-        return answer;
-            
-            
-            
+        int gcf = gcf(Math.abs(numerator), denominator); // finds the greatest common factor and divides the numerator and denominator by it
+        numerator = numerator/gcf;
+        denominator = denominator/gcf;
+
+        if( whole !=0 && numerator != 0 ) { //different returns so that parts that equal 0 do not show up in the final answer 
+            return (whole + "_" + numerator + "/" +denominator); 
         }
-        
+        else if (whole ==0 && numerator == 0) {
+            return "0";
+        }
+        else if (whole == 0 && numerator == denominator) {
+            return "1";
+        }
+        else if (whole == 0 ) {
+            return (numerator + "/" + denominator);
+        }
+        else  {
+            return Integer.toString(whole);
+        }
     }
+
+    private static int gcf (int numerator, int denominator) // finds the greatest common factor of the numerator and the doenminator
+    {
+        while (denominator > 0)
+        {
+            int c = denominator;
+            denominator = numerator % denominator; 
+            numerator = c;
+        }
+        return Math.abs(numerator+denominator);
+    }
+}
 
